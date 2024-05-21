@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AIsthetic Gallery</title>
+<style>
+  body{ font-family: 'Cooper Black', sans-serif; margin: 0; padding: 0; background-color: #f0f0f0; }
+  .gallery-container { display: flex; flex-wrap: wrap; justify-content: center; padding: 20px; }
+  .art-piece { margin: 15px; border: 5px solid #fff; box-shadow: 0 5px 15px rgba(0,0,0,0.3); width: 300px; overflow: hidden; display: flex; flex-direction: column; align-items: center; }
+  .art-piece img { width: 100%; height: auto; object-fit: cover; display: block; cursor: pointer; flex-grow: 1; }
+  .art-title { text-align: center; font-size: 18px; color: #333; padding: 10px 0; width: 100%; box-sizing: border-box; }
+  .lightbox {
+    display: none; 
+    position: fixed; 
+    z-index: 1000; 
+    left: 0; 
+    top: 0; 
+    width: 100%; 
+    height: 100%; 
+    background-color: rgba(0,0,0,0.8); 
+    justify-content: center; 
+    align-items: center; 
+  }
+  .lightbox img {
+    max-width: 90%; 
+    max-height: 90%; 
+  }
+  .close-btn {
+    position: absolute; 
+    top: 20px; 
+    right: 20px; 
+    background-color: #fff; 
+    color: #000; 
+    border: none; 
+    padding: 10px 15px; 
+    cursor: pointer; 
+    font-size: 16px; 
+    border-radius: 5px;
+  }
+</style>
+</head>
+<body>
+  <div id="sfcfj1wtx7kzhx5ucwgmda9azn8uj4j11jp"></div> <script type="text/javascript" src="https://counter4.optistats.ovh/private/counter.js?c=fj1wtx7kzhx5ucwgmda9azn8uj4j11jp&down=async" async></script> <br><a href="https://www.freecounterstat.com">hit counters for websites</a><noscript><a href="https://www.freecounterstat.com" title="hit counters for websites"><img src="https://counter4.optistats.ovh/private/freecounterstat.php?c=fj1wtx7kzhx5ucwgmda9azn8uj4j11jp" border="0" title="hit counters for websites" alt="hit counters for websites"></a></noscript>
+    <h1 align="center">AIsthetic Gallery</h1>
+    <p align="center">Link to my DeviantArt: <a href="https://www.deviantart.com/grifski289">Grifski289</a>
+        <h4 align="center">Click on any of the images to view them in full size</h4>
+        <h4 align="center">All images are free to use. To download click on the image in full view, right-click and press save image as</h4>
+<div class="gallery-container">
+  <!-- Art pieces will be inserted here by JavaScript -->
+</div>
+
+<!-- Lightbox container -->
+<div class="lightbox" id="lightbox">
+  <button class="close-btn" id="close-btn">Close</button>
+  <img id="lightbox-img" src="" alt="Art Piece">
+</div>
+&copy; 2024 Grifski289
+
+<script>
+// Sample array of art pieces
+const artPieces = [
+  { title: 'Colorful Road', image: 'pictures/Rainbow Road.jfif' },
+  { title: 'Happy 4th of July!', image: 'pictures/Happy 4th of July.jfif' },
+  { title: 'Cookie Monster in Cookie Land', image: 'pictures/Cookie Monster.jfif' },
+  { title: 'Cat Eating Dinner', image: 'pictures/Cat.jfif' },
+  { title: 'Office Dog', image: 'pictures/Dog.jfif' },
+  { title: 'A Day at the Beach', image: 'pictures/Fennecgirl.jpg' },
+  { title: 'Eating Lunch', image: 'pictures/Sandwich.jfif' },
+  { title: 'Minion at a Bar', image: 'pictures/Minion.jpg' },
+  { title: 'SpongeBob in the Snow', image: 'pictures/SpongeBob.jpg' },
+  { title: 'Pongo and Perdita', image: 'pictures/A Dalmatian Couple.jpg' },
+  { title: 'Clownfish and Blue Tang', image: 'pictures/Fishes.jfif' },
+  { title: 'Homer and Peter Tap Dancing', image: 'pictures/Peter and Homer Tap Dancing.jpg' },
+  { title: 'Sonic Christmas', image: 'pictures/SonicChristmas.jpg' },
+  { title: 'Gangster Kermit', image: 'pictures/Kermitcar.jpg' },
+  { title: 'Zombie Apocalypse', image: 'pictures/Zombies.jpg' },
+  { title: 'Beach Loona', image: 'pictures/Loona.jpg' },
+  { title: 'Beach Lola', image: 'pictures/Lola.jpg' },
+  { title: 'Dragon Eating Cereal', image: 'pictures/DragonCereal.jfif' },
+  { title: 'Pig Wearing a Hat', image: 'pictures/Pig.jpg' },
+  { title: 'Rick and Morty', image: 'pictures/RickandMorty.jpg' },
+  { title: 'SpongeBob, Kermit, and Nick as Pirates', image: 'pictures/Pirates.jpg' },
+  { title: 'Dance', image: 'pictures/Dance.jpg' },
+  { title: 'Elastigirl Cosplay', image: 'pictures/Elastigirl.jpg' },
+  { title: 'A Walk in the Park', image: 'pictures/Park.jpg' },
+  { title: 'A Slice of Cake', image: 'pictures/Cake.jpg' },
+  { title: 'Coffee in the Morning', image: 'pictures/Coffee.jpg' },
+  { title: 'Rapunzel Cosplay', image: 'pictures/Foxg.jpg' },
+];
+
+
+// Function to display art pieces
+function displayArt() {
+  const container = document.querySelector('.gallery-container');
+  artPieces.forEach(piece => {
+    container.innerHTML += `
+      <div class="art-piece">
+        <img src="${piece.image}" alt="${piece.title}" data-fullsize="${piece.image}">
+        <h3 class="art-title">${piece.title}</h3>
+      </div>
+    `;
+  });
+
+  // Add event listeners to images
+  document.querySelectorAll('.art-piece img').forEach(img => {
+    img.addEventListener('click', function() {
+      const lightbox = document.getElementById('lightbox');
+      const lightboxImg = document.getElementById('lightbox-img');
+      lightboxImg.src = this.dataset.fullsize;
+      lightbox.style.display = 'flex';
+    });
+  });
+}
+
+// Close lightbox when clicking the close button
+document.getElementById('close-btn').addEventListener('click', function() {
+  document.getElementById('lightbox').style.display = 'none';
+});
+
+// Call the function to display art
+displayArt();
+</script>
+
+</body>
+</html>
